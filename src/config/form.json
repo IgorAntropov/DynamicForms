@@ -1,0 +1,41 @@
+[
+  {
+    "type": "Input",
+    "label": "First name",
+    "name": "firstname"
+  },
+  {
+    "type": "Input",
+    "label": "Last name",
+    "name": "lastname"
+  },
+  {
+    "type": "Textarea",
+    "label": "Comment",
+    "name": "comment"
+  },
+  {
+    "type": "Select",
+    "label": "Sex",
+    "name": "sex",
+    "params": {
+      "options": [
+        {
+          "id": "1",
+          "value": "male",
+          "label": "Male"
+        },
+        {
+          "id": "2",
+          "value": "female",
+          "label": "Female"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Checkbox",
+    "label": "Remember?",
+    "name": "remember"
+  }
+]
