@@ -1,37 +1,34 @@
 <template>
-  <div class="wrapper">
-    <div
-        v-for="(field, index) in formConfig"
-        :key="index"
-        class="element-container"
-    >
-      <label class="element-title">{{ field.label }}</label>
-      <component
-          :is="field.type"
-          :name="field.name"
-          :params="field.params"
-          @input="updateFiled(field.name, $event)"
-      ></component>
-    </div>
-    <div class="control">
-      <Button
-          :title="'Reset'"
-          :style="'reset'"
-          :disabled="!disabledResetBtn"
-          @click="resetForm"
-      ></Button>
-      <Button
-          :title="'Submit'"
-          :style="'save'"
-          :disabled="disabledSaveBtn"
-          @click="saveForm"
-      ></Button>
-    </div>
+  <div
+      v-for="(field, index) in config"
+      :key="index"
+      class="element-container"
+  >
+    <label class="element-title">{{ field.label }}</label>
+    <component
+        :is="field.type"
+        :name="field.name"
+        :params="field.params"
+        @input="updateFiled(field.name, $event)"
+    ></component>
+  </div>
+  <div class="control">
+    <Button
+        :title="'Reset'"
+        :style="'reset'"
+        :disabled="!disabledResetBtn"
+        @click="resetForm"
+    ></Button>
+    <Button
+        :title="'Submit'"
+        :style="'save'"
+        :disabled="disabledSaveBtn"
+        @click="$emit('save', formFields)"
+    ></Button>
   </div>
 </template>
 
 <script>
-import Config from "@/config/form.json";
 import Input from "@/components/formElements/input";
 import Textarea from "@/components/formElements/textarea";
 import Checkbox from "@/components/formElements/checkbox";
@@ -43,6 +40,12 @@ export default {
     formFields: {},
   }),
   name: "formBuilder",
+  props: [
+    'config',
+  ],
+  emits: [
+    'save',
+  ],
   components: {
     Input,
     Textarea,
@@ -50,15 +53,12 @@ export default {
     Select,
     Button,
   },
-  created() {
-    this.formConfig.map(element => {
+  mounted() {
+    this.config.map(element => {
       this.formFields[element.name] = null;
     });
   },
   computed: {
-    formConfig() {
-      return Config;
-    },
     disabledSaveBtn() {
       return Object.keys(this.formFields).some(
           key => this.formFields[key] === null || this.formFields[key] === ''
@@ -75,9 +75,6 @@ export default {
       if (typeof value === 'string' || typeof value === 'boolean') {
         this.formFields[field] = value;
       }
-    },
-    saveForm() {
-      this.$store.dispatch('addNewForm', this.formFields);
     },
     resetForm() {
       Object.keys(this.formFields).map(key => {
@@ -97,41 +94,32 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.wrapper {
-  max-width: 600px;
-  min-width: 600px;
+.element-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  margin: 5px;
+  width: 100%;
 
-  .element-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 5px;
-    width: 100%;
-
-    label.element-title {
-      width: 90px;
-      margin-right: 5px;
-      text-align: center;
-    }
-
-    input, select, textarea {
-      width: 200px;
-      height: 40px;
-      margin: 0;
-      padding: 0;
-    }
+  label.element-title {
+    width: 90px;
+    margin-right: 5px;
+    text-align: center;
   }
 
-  .control {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-    margin-top: 10px;
+  input, select, textarea {
+    width: 200px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
   }
+}
+
+.control {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
 }
 </style>

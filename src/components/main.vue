@@ -2,6 +2,10 @@
   <div class="container">
     <nav>
       <ul>
+        <li>
+          <i class="material-icons">dynamic_form</i>
+        </li>
+
         <router-link
             :to="'/list'"
             :class="$route.name === 'Forms list' ? 'active' : ''"
@@ -10,8 +14,8 @@
         </router-link>
 
         <router-link
-            :to="'/builder'"
-            :class="$route.name === 'Forms builder' ? 'active' : ''"
+            :to="'/profile-builder'"
+            :class="$route.name === 'Profile builder' ? 'active' : ''"
         >
           <li>Form builder</li>
         </router-link>
@@ -33,9 +37,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
   position: relative;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100vh;
 
   nav {
     width: 100%;
@@ -63,9 +69,16 @@ export default {
         &:not(:first-child) {
           margin-left: 5px;
         }
+      }
 
-        li {
-          list-style: none;
+      li {
+        list-style: none;
+
+        &>i {
+          cursor: default;
+          color: blue;
+          font-size: 28px;
+          margin-right: 15px;
         }
       }
     }

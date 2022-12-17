@@ -21,6 +21,11 @@
     "params": {
       "options": [
         {
+          "id": "0",
+          "value": "",
+          "label": ""
+        },
+        {
           "id": "1",
           "value": "male",
           "label": "Male"

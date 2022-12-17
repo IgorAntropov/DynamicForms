@@ -1,6 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router';
-import FormBuilder from "@/components/formBuilder";
-import FormsList from "@/components/forms";
+import ProfileForm from "@/components/profileForm";
+import FormsList from "@/components/formsList/forms";
 
 const routes = [
     {
@@ -9,9 +9,9 @@ const routes = [
         component: FormsList,
     },
     {
-        path: '/builder',
-        name: 'Forms builder',
-        component: FormBuilder,
+        path: '/profile-builder',
+        name: 'Profile builder',
+        component: ProfileForm,
     },
 ]
 
