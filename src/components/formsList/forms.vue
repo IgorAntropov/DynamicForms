@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="items">
+    <div class="items" v-if="getForms.length">
       <div
           v-for="(form, index) in getForms"
           :key="index"
@@ -14,7 +14,7 @@
     </div>
     <div
         class="empty-list"
-        v-if="!getForms.length"
+        v-else
     >
       <span>List is empty!</span>
     </div>
